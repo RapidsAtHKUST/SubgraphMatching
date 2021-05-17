@@ -178,7 +178,20 @@ GQL or RI as the ordering method. We always recommend you to use LFTJ as the enu
 For the large queries, we recommend you to enable the failing set pruning.
 For the dense data graphs, we recommend you to enable QFilter. Otherwise, use the hybrid set intersection method with AVX2.
 
+In summary, you can execute your workloads with the following parameters as your baseline method in your experiments. First, add the definition "#define ENABLE_FAILING_SET" in 
+configuration/config.h. Second, re-compile the source code. Finally, execute the workloads. **Note that in our experiments, we set the target number of results as 100000 and terminate a query if it cannot be completed within 5 minutes (300 seconds). You can adjust these settings according to your requirement.**
 
+Execute the program with the "RI":
+
+```zsh
+./SubgraphMatching.out -d ../../test/sample_dataset/test_case_1.graph -q ../../test/sample_dataset/query1_positive.graph -filter GQL -order RI -engine LFTJ -num 100000
+```
+
+Execute the program with the "GQL":
+
+```zsh
+./SubgraphMatching.out -d ../../test/sample_dataset/test_case_1.graph -q ../../test/sample_dataset/query1_positive.graph -filter GQL -order GQL -engine LFTJ -num 100000
+```
 
 
 ## Experiment Datasets
